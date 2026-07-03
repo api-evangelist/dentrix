@@ -1,0 +1,100 @@
+aid: dentrix
+name: Dentrix
+review:
+  question: Does Dentrix expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-03'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Neither of Dentrix's two integration
+    channels exposes a server-push transport. The on-premise Dentrix Developer
+    Program (DDP) integrates locally against the office database over ODBC,
+    stored procedures, and DLL functions - a synchronous, request/response local
+    data-access model, not a network streaming protocol. The Dentrix Ascend API
+    Exchange is a cloud REST/JSON API over HTTPS secured with OAuth 2.0 - also
+    request/response. No WebSocket (ws:// or wss://) endpoint is documented on
+    either surface, so there is no realtime bidirectional transport to model.
+findings:
+  summary: |
+    Dentrix does not publish a documented public WebSocket API. Dentrix, a Henry
+    Schein One dental practice management platform, offers two partner-gated
+    developer channels. (1) The Dentrix Developer Program (DDP, launched 2012)
+    targets the on-premise Dentrix desktop: integrations run locally against the
+    office's Dentrix database via password-protected ODBC connections, table
+    views, stored procedures, and DLL functions, authenticated with a
+    RegisterUser call. This is a local data-access model, not a REST or streaming
+    API. (2) The Dentrix Ascend API Exchange (launched July 2023) is a cloud
+    REST/JSON API over HTTPS on the SOC 2 Type II Dentrix Ascend platform, secured
+    with OAuth 2.0. Both are request/response. No WebSocket transport is documented
+    on either channel as of the review date.
+  accessModel: |
+    Partner-gated and paid on both channels. Access requires an application, a
+    use-case review, and a signed Dentrix API Agreement before an API key is
+    issued. DDP charges a one-time registration/set-up fee per category ($5,000
+    READ, $5,000 WRITE) plus a monthly royalty. Dentrix Ascend API Exchange is
+    billed per Ascend location per month ($47, including 30,000 calls and 3 GB)
+    with metered overages. There is no public self-serve API key or published
+    OpenAPI; the cataloged APIs are modeled from public developer materials.
+  localVsCloud: |
+    Two distinct architectures. The Dentrix desktop API (DDP) is on-premise:
+    "Dentrix is an on-premise application, and the Dentrix API is designed for
+    on-premise integrations." Access is via local ODBC/DLL against the office
+    database; cloud integrations require a locally installed desktop agent or
+    service acting as an intermediary. The Dentrix Ascend API is cloud-native REST
+    over HTTPS with OAuth 2.0. Dentrix Enterprise also ships an on-premise API for
+    larger group/DSO deployments.
+  transports:
+    - protocol: REST
+      scheme: https
+      documented: true
+      note: Dentrix Ascend API Exchange - REST/JSON over HTTPS, OAuth 2.0. Partner-gated; base URL provisioned to approved vendors.
+    - protocol: ODBC/DLL (local)
+      scheme: local
+      documented: true
+      note: Dentrix Developer Program - on-premise access via ODBC connections, table views, stored procedures, and DLL functions. Not a network API.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented on either the DDP desktop API or the Dentrix Ascend API as of the review date.
+  endpointsModeled: true
+  endpointsModeledNote: |
+    No official public OpenAPI or endpoint reference is published; the developer
+    documentation and concrete API surface sit behind the partner agreement. The
+    logical APIs in apis.yml (Patients, Appointments/Scheduling, Providers,
+    Procedures/Treatment, Insurance/Claims, Ledger/Billing, Prescriptions) are
+    modeled from Henry Schein One's public developer materials, which describe
+    over 100 stored procedures/table views/DLL functions on the desktop and REST
+    resources for patient info, scheduling, claims, and inventory on Ascend.
+sources:
+  - url: https://ddp.dentrix.com/
+    type: Documentation
+    note: Dentrix Developer Portal - SDK, API, SQL Browser, stored procedures/database views.
+  - url: https://ddp.dentrix.com/pages/faq
+    type: Documentation
+    note: DDP FAQ - on-premise ODBC/DLL model, Read/Write/Scheduling/Claims Summary categories, $5,000 per-category registration + monthly royalty.
+  - url: https://www.henryscheinone.com/dental-solutions/api-exchange
+    type: Documentation
+    note: Henry Schein One API Exchange - Dentrix and Dentrix Ascend integrations, OAuth 2.0, SOC 2 Type II.
+  - url: https://www.henryscheinone.com/about-us/press-release/henry-schein-one-launches-dentrix-ascend-api-exchange/
+    type: PressRelease
+    note: Dentrix Ascend API Exchange launch (July 13, 2023) - cloud, SOC-2 certified marketplace.
+  - url: https://support.dentrixascend.com/hc/en-us/community/posts/115002913107-Developer-API
+    type: Documentation
+    note: Dentrix Ascend developer API community reference - REST/JSON, per-location call and data allowances.
+  - url: https://hsps.pro/DentrixEnterprise/APIHelp/index.htm
+    type: Documentation
+    note: Dentrix Enterprise API Help - separate on-premise API for enterprise/DSO deployments.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists on either Dentrix channel, and both
+    public developer surfaces are request/response (on-premise ODBC/DLL for the
+    desktop DDP, cloud REST/JSON for Dentrix Ascend). No AsyncAPI document was
+    created because there is no server-push transport to model. The APIs in
+    apis.yml are flagged endpointsModeled because access is partner-gated and no
+    official machine-readable specification is published.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

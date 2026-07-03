@@ -1,0 +1,69 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Dentrix
+providerId: dentrix
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Dental
+- Practice Management
+- Partner API
+- Rate Limiting
+- Quotas
+description: >-
+  Dentrix does not publish a general per-second request rate limit. The Dentrix
+  Ascend API Exchange meters usage by a monthly allowance per Dentrix Ascend
+  location - a documented 30,000 API calls and 3 GB of data per location per month,
+  with metered overages beyond that ($0.0018 per additional call, $1.00 per
+  additional GB). On the on-premise Dentrix Developer Program, throughput is bound
+  to the local Dentrix database/ODBC layer and each office's hardware rather than a
+  cloud quota. Exact per-endpoint or per-second caps are partner-agreement specific
+  and not publicly documented; figures here are drawn from public developer
+  materials and are not reconciled against a signed agreement.
+notes: >-
+  Numeric caps beyond the Ascend per-location monthly allowance are not publicly
+  documented. Verify current allowances and overage rates with Henry Schein One.
+sources:
+- https://ddp.dentrix.com/pages/faq
+- https://www.henryscheinone.com/dental-solutions/api-exchange
+- https://support.dentrixascend.com/hc/en-us/community/posts/115002913107-Developer-API
+responseCodes:
+  throttled: 429
+limits:
+- name: Ascend Included Calls
+  scope: location
+  metric: requests
+  limit: 30000 per location per month
+  notes: Included in the $47/location/month Dentrix Ascend API Exchange fee.
+- name: Ascend Included Data
+  scope: location
+  metric: bytes
+  limit: 3 GB per location per month
+  notes: Included data transfer allowance per Dentrix Ascend location.
+- name: Ascend Call Overage
+  scope: location
+  metric: requests
+  limit: metered above 30000
+  notes: Overage billed at $0.0018 per call beyond the included allowance.
+- name: Ascend Data Overage
+  scope: location
+  metric: bytes
+  limit: metered above 3 GB
+  notes: Overage billed at $1.00 per GB beyond the included allowance.
+- name: Desktop (DDP) Throughput
+  scope: deployment
+  metric: queries
+  limit: hardware/ODBC-bound
+  notes: On-premise integrations are bound by the local Dentrix database and office hardware, not a cloud quota.
+policies:
+- name: Partner-Gated Access
+  description: API keys are issued only after application, use-case review, and a signed API agreement; there is no public self-serve tier.
+- name: Metered Overage
+  description: Dentrix Ascend usage above the per-location monthly allowance is metered and billed rather than hard-blocked.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on 429 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

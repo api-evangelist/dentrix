@@ -1,0 +1,193 @@
+aid: dentrix
+url: https://raw.githubusercontent.com/api-evangelist/dentrix/refs/heads/main/apis.yml
+name: Dentrix
+kind: company
+description: >-
+  Dentrix is a dental practice management platform from Henry Schein One, used by
+  dental offices to manage patients, scheduling, clinical charting, treatment
+  planning, insurance, and billing. Dentrix exposes third-party integration APIs
+  through two distinct channels. The original Dentrix Developer Program (DDP,
+  launched 2012) targets the on-premise Dentrix desktop application: integrations
+  run locally against the office's Dentrix database over password-protected ODBC
+  connections, stored procedures, table views, and DLL functions (authenticated
+  via a RegisterUser call) - it is NOT a public REST/cloud API, and cloud
+  integrations require a locally installed desktop agent. The newer Dentrix Ascend
+  API Exchange (launched July 2023) is a cloud, REST/JSON API over HTTPS secured
+  with OAuth 2.0 on the SOC 2 Type II Dentrix Ascend platform, exposing patient,
+  scheduling, claims, and inventory data. Both channels are partner-gated: access
+  requires an application, a signed agreement, and paid developer fees. There is no
+  public self-serve API key or published OpenAPI, so the APIs below are modeled
+  from Henry Schein One's public developer materials rather than an official
+  machine-readable specification.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Dental
+- Practice Management
+- Healthcare
+- Dentistry
+- Patient Data
+- EHR
+- Partner API
+- Henry Schein One
+created: '2026-07-03'
+modified: '2026-07-03'
+specificationVersion: '0.19'
+apis:
+- aid: dentrix:dentrix-patients-api
+  name: Dentrix Patients API
+  tags:
+  - Patients
+  - Demographics
+  - Records
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.henryscheinone.com/dental-solutions/api-exchange
+  endpointsModeled: true
+  properties:
+  - url: https://ddp.dentrix.com/pages/faq
+    type: Documentation
+  - url: https://www.henryscheinone.com/dental-solutions/api-exchange
+    type: Documentation
+  description: >-
+    Retrieve and (with the Write API / Ascend scopes) manage patient demographics,
+    contact details, household and responsible-party relationships, and patient
+    status. On Dentrix Ascend this is a REST/JSON resource; on the Dentrix desktop
+    it is served through Read/Write table views, stored procedures, and DLL
+    functions over ODBC. Endpoints are modeled from public developer materials -
+    the concrete surface is partner-gated.
+- aid: dentrix:dentrix-appointments-api
+  name: Dentrix Appointments & Scheduling API
+  tags:
+  - Appointments
+  - Scheduling
+  - Calendar
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.henryscheinone.com/dental-solutions/api-exchange
+  endpointsModeled: true
+  properties:
+  - url: https://ddp.dentrix.com/pages/faq
+    type: Documentation
+  - url: https://www.henryscheinone.com/dental-solutions/api-exchange
+    type: Documentation
+  description: >-
+    Read the schedule and book, reschedule, or cancel appointments. In the Dentrix
+    Developer Program this maps to the commercial-only Scheduling API; on Dentrix
+    Ascend it is a REST scheduling resource. Endpoints are modeled from public
+    developer materials - the concrete surface is partner-gated.
+- aid: dentrix:dentrix-providers-api
+  name: Dentrix Providers API
+  tags:
+  - Providers
+  - Practitioners
+  - Staff
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.henryscheinone.com/dental-solutions/api-exchange
+  endpointsModeled: true
+  properties:
+  - url: https://ddp.dentrix.com/pages/faq
+    type: Documentation
+  - url: https://www.henryscheinone.com/dental-solutions/api-exchange
+    type: Documentation
+  description: >-
+    Look up providers, operatories, and practice/location metadata used to
+    associate appointments, procedures, and production with the responsible dentist
+    or hygienist. Read-oriented reference data exposed via table views/DLL functions
+    (desktop) or REST reference resources (Ascend). Endpoints are modeled from
+    public developer materials.
+- aid: dentrix:dentrix-procedures-treatment-api
+  name: Dentrix Procedures & Treatment API
+  tags:
+  - Procedures
+  - Treatment Plans
+  - Clinical
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.henryscheinone.com/dental-solutions/api-exchange
+  endpointsModeled: true
+  properties:
+  - url: https://ddp.dentrix.com/pages/faq
+    type: Documentation
+  - url: https://www.henryscheinone.com/dental-solutions/api-exchange
+    type: Documentation
+  description: >-
+    Access clinical and treatment data - procedure codes (CDT), completed and
+    planned procedures, treatment plans, and clinical notes. Surfaced through
+    clinical table views and stored procedures on the Dentrix desktop and as REST
+    clinical resources on Dentrix Ascend. Endpoints are modeled from public
+    developer materials - the concrete surface is partner-gated.
+- aid: dentrix:dentrix-insurance-claims-api
+  name: Dentrix Insurance & Claims API
+  tags:
+  - Insurance
+  - Claims
+  - Billing
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.henryscheinone.com/dental-solutions/api-exchange
+  endpointsModeled: true
+  properties:
+  - url: https://ddp.dentrix.com/pages/faq
+    type: Documentation
+  - url: https://www.henryscheinone.com/dental-solutions/api-exchange
+    type: Documentation
+  description: >-
+    Read insurance coverage and claim status and, on Ascend, submit claims. The
+    Dentrix Developer Program exposes a dedicated Claims Summary API for
+    practice-level claims reporting; Dentrix Ascend supports claim submission over
+    REST. Endpoints are modeled from public developer materials - the concrete
+    surface is partner-gated.
+- aid: dentrix:dentrix-ledger-billing-api
+  name: Dentrix Ledger & Billing API
+  tags:
+  - Ledger
+  - Payments
+  - Financials
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.henryscheinone.com/dental-solutions/api-exchange
+  endpointsModeled: true
+  properties:
+  - url: https://ddp.dentrix.com/pages/faq
+    type: Documentation
+  - url: https://www.henryscheinone.com/dental-solutions/api-exchange
+    type: Documentation
+  description: >-
+    Access account ledgers, charges, payments, adjustments, and balances for
+    patient and insurance financial reconciliation. Read via financial table views
+    and stored procedures (desktop) or REST ledger resources (Ascend). Endpoints
+    are modeled from public developer materials - the concrete surface is
+    partner-gated.
+- aid: dentrix:dentrix-prescriptions-api
+  name: Dentrix Prescriptions API
+  tags:
+  - Prescriptions
+  - Medications
+  - Clinical
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.henryscheinone.com/dental-solutions/api-exchange
+  endpointsModeled: true
+  properties:
+  - url: https://ddp.dentrix.com/pages/faq
+    type: Documentation
+  - url: https://www.henryscheinone.com/dental-solutions/api-exchange
+    type: Documentation
+  description: >-
+    Read prescription and medication history captured in the patient clinical
+    record. Availability is subject to program category and partner agreement;
+    exposed through clinical table views/DLL functions on the desktop or REST
+    clinical resources on Ascend. Endpoints are modeled from public developer
+    materials - the concrete surface is partner-gated.
+common:
+- type: Website
+  url: https://www.dentrix.com/
+- type: LinkedIn
+  url: https://www.linkedin.com/company/henry-schein-one
+- type: Documentation
+  url: https://ddp.dentrix.com/
+- type: Documentation
+  url: https://www.henryscheinone.com/dental-solutions/api-exchange
+- type: SignUp
+  url: https://ddp.dentrix.com/pages/faq
+- type: Plans
+  url: plans/dentrix-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/dentrix-rate-limits.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

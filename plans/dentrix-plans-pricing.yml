@@ -1,0 +1,144 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Dentrix
+providerId: dentrix
+created: '2026-07-03'
+modified: '2026-07-03'
+reconciled: false
+tags:
+- Dental
+- Practice Management
+- Partner API
+- Plans
+description: >-
+  Dentrix API access is partner-gated and paid through two separate commercial
+  programs. The Dentrix Developer Program (DDP) governs on-premise Dentrix desktop
+  integrations and charges a one-time registration/set-up fee per API category
+  (READ and WRITE are each a separate fee) plus an ongoing monthly royalty based on
+  the API categories selected. The Dentrix Ascend API Exchange governs cloud REST
+  integrations and is billed per Dentrix Ascend location per month with an included
+  call and data allowance and metered overages. All figures below are drawn from
+  public Henry Schein One / Dentrix developer materials and press coverage and are
+  not reconciled against a signed agreement - verify current terms directly with
+  Henry Schein One.
+notes: >-
+  Both programs require an application, use-case review, and a signed API agreement
+  before an API key is issued. Pricing reflects publicly cited amounts and may have
+  changed; treat as indicative pending reconciliation.
+sources:
+- https://ddp.dentrix.com/
+- https://ddp.dentrix.com/pages/faq
+- https://www.henryscheinone.com/dental-solutions/api-exchange
+plans:
+- id: dentrix-ddp-read
+  name: Dentrix Developer Program - Read API
+  type: paid
+  description: >-
+    On-premise read-only access to supported Dentrix table views, stored
+    procedures, and DLL functions over password-protected ODBC. One-time
+    registration/set-up fee plus a monthly royalty based on selected categories.
+  entries:
+  - label: Read API Registration & Setup
+    name: read_registration
+    type: flat
+    metric: registration
+    limit: -1
+    timeFrame: lifetime
+    geo: global
+    unit: 1
+    price: $5,000 one-time
+    userMultiplied: false
+  - label: Monthly Royalty
+    name: read_royalty
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: usage/category-based monthly royalty (contact Henry Schein One)
+    userMultiplied: false
+  elements:
+  - name: Read-Only Table Views
+  - name: Stored Procedures
+  - name: DLL Functions
+  - name: On-Premise ODBC Access
+- id: dentrix-ddp-write
+  name: Dentrix Developer Program - Write API
+  type: paid
+  description: >-
+    On-premise approved write operations against the Dentrix desktop database.
+    Separate one-time registration/set-up fee plus a monthly royalty. Scheduling
+    API and Claims Summary API are additional commercial categories.
+  entries:
+  - label: Write API Registration & Setup
+    name: write_registration
+    type: flat
+    metric: registration
+    limit: -1
+    timeFrame: lifetime
+    geo: global
+    unit: 1
+    price: $5,000 one-time
+    userMultiplied: false
+  - label: Monthly Royalty
+    name: write_royalty
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: usage/category-based monthly royalty (contact Henry Schein One)
+    userMultiplied: false
+  elements:
+  - name: Approved Write Operations
+  - name: Scheduling API (commercial add-on)
+  - name: Claims Summary API (commercial add-on)
+- id: dentrix-ascend-location
+  name: Dentrix Ascend API Exchange - Per Location
+  type: paid
+  description: >-
+    Cloud REST/JSON API access on the SOC 2 Type II Dentrix Ascend platform,
+    secured with OAuth 2.0. Billed per Dentrix Ascend location per month with an
+    included call and data allowance; usage above the allowance is metered.
+  entries:
+  - label: Location Subscription
+    name: ascend_location
+    type: flat
+    metric: subscription
+    limit: 30000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $47 per location per month (includes 30,000 API calls and 3 GB data)
+    userMultiplied: true
+  - label: Overage - API Calls
+    name: ascend_call_overage
+    type: usage
+    metric: requests
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0.0018 per call over the included 30,000
+    userMultiplied: false
+  - label: Overage - Data
+    name: ascend_data_overage
+    type: usage
+    metric: bytes
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1073741824
+    price: $1.00 per GB over the included 3 GB
+    userMultiplied: false
+  elements:
+  - name: Cloud REST/JSON API
+  - name: OAuth 2.0 Security
+  - name: SOC 2 Type II Platform
+  - name: Self-Service Vendor Onboarding
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
