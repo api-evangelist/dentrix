@@ -147,3 +147,44 @@ plans:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - hybrid
+  - subscription
+  units:
+  - data
+  - period
+  - request
+  plans:
+  - name: Dentrix Developer Program - Read API
+    access: paid
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    - period
+    periods:
+    - month
+    - one-time
+  - name: Dentrix Developer Program - Write API
+    access: paid
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    - period
+    periods:
+    - month
+    - one-time
+  - name: Dentrix Ascend API Exchange - Per Location
+    access: paid
+    model: hybrid
+    model_how: derived
+    units:
+    - data
+    - period
+    - request
+    periods:
+    - month
